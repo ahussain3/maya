@@ -1,5 +1,4 @@
 # MAYA
-Visual Essays
 
 Current Project
 ## THE STATE OF SOCIAL HOUSING IN THE UK
