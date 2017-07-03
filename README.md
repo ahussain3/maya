@@ -3,6 +3,8 @@
 Current Project
 ## THE STATE OF SOCIAL HOUSING IN THE UK
 
+https://docs.google.com/document/d/1aVNEvVbNTSQAkV5c-qHvYsDIWWP6VyZrs1zmxb9ypnc/edit
+
 ### Tentative Deadline: 11th JULY
 
 We would like to do a visual essay on social housing in the UK. Early stages at the moment, so feel free to throw out ideas (as wild and wacky as you like) and we'll try to settle on something more focused in due time.
