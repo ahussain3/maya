@@ -12,7 +12,7 @@ The tentatative dataset is sourced from the UK land registry:
 [detailed documentation](http://landregistry.data.gov.uk/app/root/doc/ppd)
 
 Challenge I foresee - there is just so much data. 20 million rows going from 1995 to now.
-Obviously not practical to display all of this, so we will need to find some representation which is better for display.
+Obviously not practical to display all of this, so we will need to find some representation which is better for display. And we will need to find some place to do the data manipulation.
 
 This is a helpful resource, someone doing something very similar:
 http://www.cutsquash.com/2015/02/visualising-house-price-data-ipython/
