@@ -15,6 +15,10 @@ var projection = d3.geoAlbers()
     .scale(5000)
     .translate([width / 2, height / 2]);
 
+var zoom = d3.zoom()
+    .scaleExtent([1,100])
+    .on("zoom", zoomed);
+
 var svg = d3.select("body").append("svg")
     .attr("width", width)
     .attr("height", height)
@@ -23,6 +27,8 @@ var path = d3.geoPath()
     .projection(projection);
 
 var g = svg.append("g");
+
+svg.call(zoom)
 
 var color = d3.scaleThreshold()
     .domain([25000, 50000, 75000, 100000, 150000, 200000, 300000, 450000, 600000, 1000000, 2000000])
@@ -70,11 +76,15 @@ function updateMapForYear(year) {
             var price = getPrice(data.properties.name, year)
             return color(price) || '#EEEEEE';
         })
-        .on('mouseover', tooltip.show)
-        .on('mouseout', tooltip.hide);
+        // .on('mouseover', tooltip.show)
+        // .on('mouseout', tooltip.hide);
 
-    svg.call(tooltip);
+    svg.call(tooltip)
     $("#year-label").text(year)
+}
+
+function zoomed() {
+    g.attr("transform", `translate(${d3.event.transform.x},${d3.event.transform.y})scale(${d3.event.transform.k})`);
 }
 
 var year = 1995
