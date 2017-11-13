@@ -11,6 +11,9 @@ We would like to do a visual essay on social housing in the UK. Early stages at 
 
 
 ### High priority to dos:
+- come up with a rough timeline (even just in writing) of the history of the quantities of social housing (by geographic area?)
+-
+
 - Find datasets relating to the topic. For each dataset it would be good to write a little about what it includes and doesn't includes, and maybe some ideas on how it will be useful.
 - Create a running list of 'research questions' - these will be useful to guide us towards a final product
 

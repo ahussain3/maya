@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>D3 Webpack Babel</title>
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
+    <style>
+        h1.center {
+            text-align: center;
+            width: 300px;
+            margin: auto;
+        }
+
+        #slider {
+            width: 300px;
+            margin: auto;
+        }
+
+        path {
+            cursor: pointer;
+            /* stroke: white; */
+            /* stroke-width: 0.1px; */
+        }
+
+        svg {
+            border: 1px solid black;
+        }
+
+        path:hover {
+            fill: slategray;
+        }
+
+        .d3-tip {
+            padding: 6px;
+            background: rgba(0, 0, 0, 0.8);
+            color: #fff;
+            border-radius: 4px;
+            font-size: 0.8em;
+            font-family: sans-serif;
+            text-align: center;
+            line-height: 1.5;
+        }
+
+        /* Creates a small triangle extender for the tooltip */
+        .d3-tip:after {
+            box-sizing: border-box;
+            display: inline;
+            font-size: 10px;
+            width: 100%;
+            line-height: 1;
+            color: rgba(0, 0, 0, 0.8);
+            content: "\25BC";
+            position: absolute;
+            text-align: center;
+        }
+
+        /* Style northward tooltips specifically */
+        .d3-tip.n:after {
+            margin: -2px 0 0 0;
+            top: 100%;
+            left: 0;
+        }
+
+    </style>
+</head>
+<body>
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="https://d3js.org/d3.v4.js"></script>
+    <script src="http://d3js.org/topojson.v1.min.js"></script>
+    <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
+    <script type="text/javascript" src="../js/d3-tip.js"></script>
+    <script type="text/javascript" src="../dist/bundle.js"></script>
+</body>
+</html>
