@@ -79,7 +79,7 @@ function updateMapForYear(year) {
     .offset([-8, 0])
     .html((data) => {
         return "<strong>Postcode&nbspArea:&nbsp</strong>" + data.properties.name + "<br/>" +
-        "<strong>Avg&nbspPrice:&nbsp</strong>" + "£" + Math.round(getPrice(data.properties.name, year));
+        "<strong>Avg&nbspPrice:&nbsp</strong>" + (getPrice(data.properties.name, year) ? "£" + Math.round(getPrice(data.properties.name, year)) : "No data");
 
         console.log("Tooltip");
         console.log(d);

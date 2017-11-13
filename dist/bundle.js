@@ -132,7 +132,7 @@ function getPrice(area, year) {
 function updateMapForYear(year) {
     d3.select(".d3-tip").remove();
     var tooltip = d3.tip().attr("class", "d3-tip").offset([-8, 0]).html(function (data) {
-        return "<strong>Postcode&nbspArea:&nbsp</strong>" + data.properties.name + "<br/>" + "<strong>Avg&nbspPrice:&nbsp</strong>" + "£" + Math.round(getPrice(data.properties.name, year));
+        return "<strong>Postcode&nbspArea:&nbsp</strong>" + data.properties.name + "<br/>" + "<strong>Avg&nbspPrice:&nbsp</strong>" + (getPrice(data.properties.name, year) ? "£" + Math.round(getPrice(data.properties.name, year)) : "No data");
 
         console.log("Tooltip");
         console.log(d);
