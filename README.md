@@ -1,26 +1,24 @@
 # MAYA
 
 Current Project
-## THE STATE OF SOCIAL HOUSING IN THE UK
+## HOUSE PRICES IN THE UK
 
-### Tentative Deadline: 11th JULY
+### To run locally
+Go to the `frontend` folder and run `npm install` followed by `npm start`.
 
-We would like to do a visual essay on social housing in the UK. Early stages at the moment, so feel free to throw out ideas (as wild and wacky as you like) and we'll try to settle on something more focused in due time.
+The data processing is done in the `housing` folder (python files and ipython notebooks). `frontend` has all of the D3 related content for actually displaying the map.
 
+### Next To Do:
+- Scale and zoom - transition between levels [DONE]
+    - when transitioning between levels keep the outer level there, stroke only
+    - pre-load the transition so we don't get a discontinuous jump
+- map overlays (so we know which area / county we are in)
+- filter data by house size, detached etc.
+- fix errors/holes in the data
+- option to adjust for inflation
+- option to display geograpic information (e.g. label big cities, major areas and roads)
+- make map screen sized
+- figure out why london districts are smaller e.g WC1F rather than WC1 (must be something to do with the geometry data)
 
-### High priority to dos:
-- come up with a rough timeline (even just in writing) of the history of the quantities of social housing (by geographic area?)
--
-
-- Find datasets relating to the topic. For each dataset it would be good to write a little about what it includes and doesn't includes, and maybe some ideas on how it will be useful.
-- Create a running list of 'research questions' - these will be useful to guide us towards a final product
-
-### To do if you have the time:
-- Basic exploratory analysis on the data to see what's in the data
-
-### In future:
-- Think about the ways in which we can link the different data sets together
-- Deployment - can we set up some kind of testing/deployment infrastructure
-
-
-We will be using D3.js (v4?) mostly for the final product, but feel free to use whatever tools you are most comfortable with in the early stages (Awais will likely be using Python / Pandas in iPython notebooks).
+What it currently looks like:
+![map of UK house prices](./img/housing_prices.png)
