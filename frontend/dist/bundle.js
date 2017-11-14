@@ -80,11 +80,11 @@ var price_data_area = __webpack_require__(1);
 var price_data_district = __webpack_require__(2);
 var price_data = district ? price_data_district : price_data_area;
 
-var datafile = district ? "../data/uk-district.json" : "../data/uk-area.json";
+var datafile = district ? "./data/uk-district.json" : "./data/uk-area.json";
 drawMapGeometry(datafile, year);
 
 function get_datafile(district) {
-    return district ? "../data/uk-district.json" : "../data/uk-area.json";
+    return district ? "./data/uk-district.json" : "./data/uk-area.json";
 }
 
 function get_price_datafile(district) {
