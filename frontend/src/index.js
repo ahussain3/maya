@@ -1,9 +1,25 @@
-var width = 800;
-var height = 1100;
+var width = 700;
+var height = 700;
 
 var year = 1995
-
 var district = false; // If this is true, show district level map
+
+d3.queue()
+    .defer(d3.json, "../data/uk-area.json")
+    .defer(d3.json, "../data/uk-district.json")
+    .defer(d3.json, "../data/all_years_price_by_area.json")
+    .defer(d3.json, "../data/all_years_price_by_district.json")
+    .await(data_loaded)
+
+function hide_loading_spinner() {
+    $(".loading-overlay").addClass("hidden")
+    $("#spinner").removeClass("loading")
+}
+
+function data_loaded(area_map, district_map, area_price, district_price) {
+    hide_loading_spinner()
+}
+
 var price_data_area = require("../data/all_years_price_by_area.json");
 var price_data_district = require("../data/all_years_price_by_district.json");
 var price_data = district ? price_data_district : price_data_area
