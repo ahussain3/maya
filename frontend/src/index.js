@@ -144,7 +144,7 @@ var g = svg.append("g");
 
 svg.call(zoom)
 
-var color = d3.scaleThreshold()
+var color = d3.scaleLinear()
     .domain([25000, 50000, 75000, 100000, 150000, 200000, 300000, 450000, 600000, 1000000, 2000000])
     .range(d3.schemeOrRd[9])
 
