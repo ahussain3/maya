@@ -74,8 +74,8 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-var width = 700;
-var height = 700;
+var width = window.innerWidth;
+var height = window.innerHeight - 100;
 
 var year = 1995;
 var district = false; // If this is true, show district level map
