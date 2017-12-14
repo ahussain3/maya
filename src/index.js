@@ -1,5 +1,5 @@
-var width = 700;
-var height = 700;
+var width = window.innerWidth;
+var height = window.innerHeight - 100;
 
 var year = 1995
 var district = false; // If this is true, show district level map
