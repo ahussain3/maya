@@ -74,8 +74,8 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-var width = 700;
-var height = 700;
+var width = window.innerWidth;
+var height = window.innerHeight - 100;
 
 var year = 1995;
 var district = false; // If this is true, show district level map
@@ -128,19 +128,18 @@ var Map = function () {
             this.districtPrice = districtPrice;
             this.year = year;
 
-            var priceData = district ? districtPrice : areaPrice;
-            var mapData = district ? districtMap : areaMap;
-
-            this.drawMapGeometry(mapData);
+            // draw both maps, high level and low level
+            this.drawMapGeometry(g_district, districtMap);
+            this.drawMapGeometry(g_area, areaMap);
             this.updateMapForYear(this.year);
         }
     }, {
         key: "getPrice",
         value: function getPrice(area, year) {
-            var priceData = this.district ? this.districtPrice : this.areaPrice;
-
-            if (priceData[area]) {
-                return priceData[area][year] || null;
+            if (this.districtPrice[area]) {
+                return this.districtPrice[area][year] || null;
+            } else if (this.areaPrice[area]) {
+                return this.areaPrice[area][year] || null;
             }
             return null;
         }
@@ -151,7 +150,7 @@ var Map = function () {
         }
     }, {
         key: "drawMapGeometry",
-        value: function drawMapGeometry(mapData) {
+        value: function drawMapGeometry(g, mapData) {
             console.log("drawMapGeometry()");
             var features = mapData.features;
             var selection = g.selectAll("path.area").data(features);
@@ -177,8 +176,12 @@ var Map = function () {
                 console.log(d);
             });
 
-            console.log("Update map for year");
-            g.selectAll("path.area").attr('fill', function (data) {
+            g_area.selectAll("path.area").attr('fill', function (data) {
+                var price = _this2.getPrice(data.properties.name, year);
+                return color(price) || '#EEEEEE';
+            }).on('mouseover', tooltip.show).on('mouseout', tooltip.hide);
+
+            g_district.selectAll("path.area").attr('fill', function (data) {
                 var price = _this2.getPrice(data.properties.name, year);
                 return color(price) || '#EEEEEE';
             }).on('mouseover', tooltip.show).on('mouseout', tooltip.hide);
@@ -189,9 +192,14 @@ var Map = function () {
     }, {
         key: "changeMapGranularity",
         value: function changeMapGranularity(newGranularity) {
+            console.log("changeMapGranularity()");
+            // hide the map which is no longer visible
             this.district = newGranularity;
-            var mapData = this.getMapData(newGranularity);
-            this.drawMapGeometry(mapData);
+            if (this.district) {
+                g_area.classed("outline-only", true);
+            } else {
+                g_area.classed("outline-only", false);
+            }
             this.updateMapForYear(this.year);
         }
     }]);
@@ -209,7 +217,9 @@ var svg = d3.select("body").append("svg").attr("width", width).attr("height", he
 
 var path = d3.geoPath().projection(projection);
 
-var g = svg.append("g");
+var g_district = svg.append("g").attr("class", "district");
+var g_area = svg.append("g").attr("class", "area");
+var g = g_area;
 
 svg.call(zoom);
 
@@ -219,7 +229,8 @@ var oldGranularity = district;
 var DISTRICT_THRESHOLD = 3;
 function zoomed() {
     var newGranularity = d3.event.transform.k > DISTRICT_THRESHOLD;
-    g.attr("transform", "translate(" + d3.event.transform.x + "," + d3.event.transform.y + ")scale(" + d3.event.transform.k + ")");
+    g_area.attr("transform", "translate(" + d3.event.transform.x + "," + d3.event.transform.y + ")scale(" + d3.event.transform.k + ")");
+    g_district.attr("transform", "translate(" + d3.event.transform.x + "," + d3.event.transform.y + ")scale(" + d3.event.transform.k + ")");
     if (newGranularity != oldGranularity) {
         map.changeMapGranularity(newGranularity);
         oldGranularity = newGranularity;
