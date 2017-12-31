@@ -86,6 +86,10 @@ function hide_loading_spinner() {
     $("#spinner").removeClass("loading");
 }
 
+function addCommas(value) {
+    return value.toLocaleString();
+}
+
 var Map = function () {
     function Map(width, height) {
         _classCallCheck(this, Map);
@@ -137,9 +141,9 @@ var Map = function () {
         key: "getPrice",
         value: function getPrice(area, year) {
             if (this.districtPrice[area]) {
-                return this.districtPrice[area][year] || null;
+                return Math.round(this.districtPrice[area][year]) || null;
             } else if (this.areaPrice[area]) {
-                return this.areaPrice[area][year] || null;
+                return Math.round(this.areaPrice[area][year]) || null;
             }
             return null;
         }
@@ -171,7 +175,7 @@ var Map = function () {
             this.year = year;
             d3.select(".d3-tip").remove();
             var tooltip = d3.tip().attr("class", "d3-tip").offset([-8, 0]).html(function (data) {
-                return "<strong>Postcode&nbspArea:&nbsp</strong>" + data.properties.name + "<br/>" + "<strong>Avg&nbspPrice:&nbsp</strong>" + (_this2.getPrice(data.properties.name, year) ? "£" + Math.round(_this2.getPrice(data.properties.name, year)) : "No data");
+                return "<strong>Postcode&nbspArea:&nbsp</strong>" + data.properties.name + "<br/>" + "<strong>Avg&nbspPrice:&nbsp</strong>" + (_this2.getPrice(data.properties.name, year) ? "£" + addCommas(_this2.getPrice(data.properties.name, year)) : "No data");
 
                 console.log(d);
             });

@@ -10,6 +10,10 @@ function hide_loading_spinner() {
     $("#spinner").removeClass("loading")
 }
 
+function addCommas(value) {
+    return value.toLocaleString()
+}
+
 class Map {
     constructor(width, height) {
         console.log("Map class created")
@@ -57,9 +61,9 @@ class Map {
 
     getPrice(area, year) {
         if (this.districtPrice[area]) {
-            return this.districtPrice[area][year] || null
+            return Math.round(this.districtPrice[area][year]) || null
         } else if (this.areaPrice[area]) {
-            return this.areaPrice[area][year] || null
+            return Math.round(this.areaPrice[area][year]) || null
         }
         return null
     }
@@ -93,7 +97,7 @@ class Map {
             .offset([-8, 0])
             .html((data) => {
                 return "<strong>Postcode&nbspArea:&nbsp</strong>" + data.properties.name + "<br/>" +
-                "<strong>Avg&nbspPrice:&nbsp</strong>" + (this.getPrice(data.properties.name, year) ? "£" + Math.round(this.getPrice(data.properties.name, year)) : "No data");
+                "<strong>Avg&nbspPrice:&nbsp</strong>" + (this.getPrice(data.properties.name, year) ? "£" + addCommas(this.getPrice(data.properties.name, year)) : "No data");
 
                 console.log(d);
         });
