@@ -3,11 +3,16 @@ var height = window.innerHeight - 100;
 
 var year = 1995
 var district = false; // If this is true, show district level map
+var priceBands = [25000, 50000, 75000, 100000, 150000, 200000, 300000, 450000, 600000, 1000000, 2000000]
 
 function hide_loading_spinner() {
     console.log("Hide loading spinner")
     $(".loading-overlay").addClass("hidden")
     $("#spinner").removeClass("loading")
+}
+
+function addCommas(value) {
+    return value.toLocaleString()
 }
 
 class Map {
@@ -57,9 +62,9 @@ class Map {
 
     getPrice(area, year) {
         if (this.districtPrice[area]) {
-            return this.districtPrice[area][year] || null
+            return Math.round(this.districtPrice[area][year]) || null
         } else if (this.areaPrice[area]) {
-            return this.areaPrice[area][year] || null
+            return Math.round(this.areaPrice[area][year]) || null
         }
         return null
     }
@@ -93,7 +98,7 @@ class Map {
             .offset([-8, 0])
             .html((data) => {
                 return "<strong>Postcode&nbspArea:&nbsp</strong>" + data.properties.name + "<br/>" +
-                "<strong>Avg&nbspPrice:&nbsp</strong>" + (this.getPrice(data.properties.name, year) ? "£" + Math.round(this.getPrice(data.properties.name, year)) : "No data");
+                "<strong>Avg&nbspPrice:&nbsp</strong>" + (this.getPrice(data.properties.name, year) ? "£" + addCommas(this.getPrice(data.properties.name, year)) : "No data");
 
                 console.log(d);
         });
@@ -155,11 +160,32 @@ var g_district = svg.append("g").attr("class", "district")
 var g_area = svg.append("g").attr("class", "area");
 var g = g_area
 
-svg.call(zoom)
-
 var color = d3.scaleLinear()
-    .domain([25000, 50000, 75000, 100000, 150000, 200000, 300000, 450000, 600000, 1000000, 2000000])
+    .domain(priceBands)
     .range(d3.schemeOrRd[9])
+
+// DRAW THE KEY / LEGEND
+var linear = d3.scaleLog()
+    .domain([0,10])
+    .range(["rgb(46, 73, 123)", "rgb(71, 187, 94)"]);
+
+svg.append("g")
+    .attr("class", "legend-box")
+    .append("g")
+    .attr("class", "legend")
+    .attr("transform", "translate(20,20)");
+
+var legendLinear = d3.legendColor()
+    .labels(priceBands.map((value) => { return "£" + d3.format(".2s")(value) }))
+    .cells(priceBands)
+    .shapeWidth(30)
+    .orient('vertical')
+    .scale(color);
+
+svg.select(".legend")
+    .call(legendLinear);
+
+svg.call(zoom)
 
 var oldGranularity = district
 var DISTRICT_THRESHOLD = 3
