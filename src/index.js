@@ -32,10 +32,10 @@ class Map {
     load_data() {
         this.data_loaded.bind(this)
         d3.queue()
-        .defer(d3.json, "../data/uk-area.json")
-        .defer(d3.json, "../data/uk-district.json")
-        .defer(d3.json, "../data/all_years_price_by_area.json")
-        .defer(d3.json, "../data/all_years_price_by_district.json")
+        .defer(d3.json, "data/uk-area.json")
+        .defer(d3.json, "data/uk-district.json")
+        .defer(d3.json, "data/all_years_price_by_area.json")
+        .defer(d3.json, "data/all_years_price_by_district.json")
         .await((error, areaMap, districtMap, areaPrice, districtPrice) =>
             this.data_loaded(this, error, areaMap, districtMap, areaPrice, districtPrice)
         )
